@@ -1,0 +1,37 @@
+{% extends 'iocrm_app/base.html' %}
+
+{% block content %}
+        <h1 class="mb-2"> Проекты </h1>
+        <table class="table table-striped align-middle">
+                <tr>
+                    <td><b>#</b></td>
+                    <td><b>Песня</b></td>
+                    <td><b>Артист</b></td>
+                    <td><b>Стоимость</b></td>
+                    <td><b>Создан</b></td>
+                    <td><b>Обновлен</b></td>
+                    <td><b>Поступления</b></td>
+                    <td><a href="{% url 'pr_new' %}" class="btn btn-primary">Добавить проект</a></td>
+            </tr>
+            {% for pr in prs %}
+            <tr>
+                    <td>{{pr.pk}}</td>
+                    <td><a href="{% url 'pr_detail' pk=pr.pk %}">{{ pr.song }}</a></td>
+                    <td>{{pr.artist}}</td>
+                    <td>{{pr.price}} руб.</td>
+                    <td>{{pr.created_at}}</td>
+                    <td>{{pr.updated_at}}</td>
+                    <td>
+                        {% if pr.transactions.all %}
+                            {% for t in pr.transactions.all|slice:":3" %}
+                                <a href="{% url 'tr_detail' pk=t.pk %}" class="link-secondary"> <b>{{t.q}} руб. </b> {{t.created_at }} </a></br>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-secondary"> Поступлений пока нет </span>
+                        {% endif %}
+                    </td>
+                    <td><a class="btn btn-link" href="{% url 'pr_edit' pk=pr.pk %}">Редактировать</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock %}

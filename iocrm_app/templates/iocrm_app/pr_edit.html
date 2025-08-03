@@ -1,0 +1,13 @@
+{% extends 'iocrm_app/base.html' %}
+
+{% block content %}
+<div class="justify-content-center d-flex align-items-center">
+    <div class="card text-center p-5 mt-5 w-50">
+    <h1 class="mb-2">Проект</h1>
+        <form method="POST" class="artist-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

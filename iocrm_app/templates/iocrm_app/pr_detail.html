@@ -1,0 +1,51 @@
+{% extends 'iocrm_app/base.html' %}
+
+{% block content %}
+        <h1 class="mb-2">Проекты / {{pr.artist}} / {{pr.song}} </h1>
+        <table class="table table-striped align-middle">
+                <tr>
+                    <td><b>#</b></td>
+                    <td><b>Песня</b></td>
+                    <td><b>Артист</b></td>
+                    <td><b>Стоимость</b></td>
+                    <td><b>Договор</b></td>
+                    <td><b>Результат</b></td>
+                    <td><b>Слушать</b></td>
+                    <td><b>Статус</b></td>
+                    <td><b>Создано</b></td>
+                    <td><b>Обновлено</b></td>
+                    <td><b>Поступления</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>{{pr.pk}}</td>
+                    <td>{{pr.song}}</td>
+                    <td><a href="{% url 'ar_detail' pk=pr.artist.pk %}"> {{pr.artist}}</a></td>
+                    <td>{{pr.price}}</td>
+                    <td>{{pr.agreement}}</td>
+                    <td>{{pr.result}}</td>
+                    <td>{{pr.yandex}}</td>
+                    <td>
+                        {% if pr.status == 'done' %}
+                            <span class="text-success"> {{pr.status}} </span>
+                        {% elif pr.status == 'ongoing' %}
+                            <span class="text-primary"> {{pr.status}} </span>
+                        {% elif pr.status == 'demo' %}
+                            <span class="text-secondary">{{pr.status}} </span>
+                        {% else %}
+                            None </span>
+                        {% endif %}
+                    </td>
+                    <td>{{pr.created_at}}</td>
+                    <td>{{pr.updated_at}}</td>
+                    <td>{% if pr.transactions.all %}
+                            {% for t in pr.transactions.all %}
+                                <a href="{% url 'tr_detail' pk=t.pk %}" class="link-primary"><b>{{t.q}} руб. </b> {{t.created_at }}</a></br>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-secondary"> Поступлений пока нет </span>
+                        {% endif %}</td>
+                    <td><a class="btn btn-link" href="{% url 'pr_edit' pk=pr.pk %}">Редактировать</a></td>
+            </tr>
+        </table>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'iocrm_app/base.html' %}
+
+{% block content %}
+        <h1 class="mb-2">Поступления / # {{tr.pk}} </h1>
+        <table class="table table-striped align-middle">
+                <tr>
+                    <td><b>#</b></td>
+                    <td><b>Артист</b></td>
+                    <td><b>Песня</b></td>
+                    <td><b>Тип</b></td>
+                    <td><b>Сумма</b></td>
+                    <td><b>Чек</b></td>
+                    <td><b>Создано</b></td>
+                    <td><b>Обновлено</b></td>
+                    <td><b>Комментарий</b></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>{{tr.pk}}</td>
+                    <td>{{tr.artist}}</td>
+                    <td>{{tr.song}}</td>
+                    <td>{{tr.type}}</td>
+                    <td>{{tr.q}} руб.</td>
+                    <td>{{tr.receipt}}</td>
+                    <td>{{tr.created_at}}</td>
+                    <td>{{tr.updated_at}}</td>
+                    <td>{{tr.comment}}</td>
+                    <td><a class="btn btn-link" href="{% url 'tr_edit' pk=tr.pk %}">Редактировать</a></td>
+            </tr>
+        </table>
+{% endblock %}

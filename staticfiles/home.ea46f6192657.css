@@ -1,0 +1,70 @@
+body {
+    background-color: #E8F0F9;
+    font-family: Sofia Sans, PT Sans;
+}
+
+.artistlink {
+    text-decoration: none;
+}
+
+.artistlink:hover {
+    text-decoration: underline;
+    color: pink;
+}
+
+.releaselink {
+    align-items: center;
+}
+
+@media (max-width: 575.98px) {
+    .mobile-sm {
+        max-width: 20em;
+        min-width: 20em;
+    }
+    .mobile-inv {
+        display: none;
+    }
+    .mobile-vis{
+        display: inline-block;
+    }
+}
+
+@media (min-width: 575.98px) {
+    .mobile-inv {
+        display: inline-block;
+    }
+    .mobile-vis{
+        display: none;
+    }
+}
+
+.zakaz {
+    color: #00A2CE;
+    border-color: #00A2CE;
+    border-radius: 15px;
+}
+
+.iconlink {
+    max-height: 0.2em;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.iconall {
+    margin-right: 1em;
+}
+
+.artistrelease {
+    margin-top: -1em;
+    color: white;
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+.daterelease {
+    margin-top: 3em;
+    margin-bottom: 0;
+    color: white;
+    font-size: 0.8em;
+    opacity: 0.5;
+}

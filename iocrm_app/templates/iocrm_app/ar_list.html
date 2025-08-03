@@ -1,0 +1,84 @@
+{% extends 'iocrm_app/base.html' %}
+
+{% block content %}
+        <h1 class="mb-2"> Артисты </h1>
+        <table class="table table-striped align-middle">
+                <tr>
+                    <td>
+                        <b>#</b>
+                    </td>
+                    <td>
+                        <b>Обложка</b>
+                    </td>
+                    <td>
+                        <b>Артист</b>
+                    </td>
+                    <td>
+                        <b>Создан</b>
+                    </td>
+                    <td>
+                        <b>Обновлен</b>
+                    </td>
+                    <td>
+                        <b>Песни</b>
+                    </td>
+                    <td>
+                        <b>Поступления</b>
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="{% url 'ar_new' %}" class="btn btn-primary">Новый артист</a>
+                    </td>
+            </tr>
+            {% for ar in ars %}
+            <tr>
+                    <td>
+                        {{ar.pk}}
+                    </td>
+                    <td>
+                        <img src="{{ar.get_cover_url}}"/ style="width: 3em; height: 3em; object-fit: cover; border-radius:300px;  overflow: hidden;">
+                    </td>
+                    <td>
+                        <a href="{% url 'ar_detail' pk=ar.pk %}">{{ ar.name }}</a>
+                    </td>
+                    <td>
+                        {{ar.created_at}}
+                    </td>
+                    <td>
+                        {{ar.updated_at}}
+                    </td>
+                    <td>
+                        {% if ar.projects.all %}
+                            {% for p in ar.projects.all|slice:":3" %}
+                                <a href="{% url 'pr_detail' pk=p.pk %}" class="link-secondary"> {{p.song}} </a>
+                                </br>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-secondary"> Песен пока нет </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ar.transactions.all %}
+                            {% for t in ar.transactions.all|slice:":3" %}
+                                <a href="{% url 'tr_detail' pk=t.pk %}" class="link-secondary"> <b>{{t.q}} руб. </b> {{t.created_at }} </a></br>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-secondary"> Поступлений пока нет </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ar.landing %}
+                            <div class="rounded-circle" style="width: 10px; height: 10px; background-color: green;"></div>
+                            {% else %}
+                           <div class="rounded-circle" style="width: 10px; height: 10px; background-color: grey;"></div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn btn-link link-secondary" href="{% url 'ar_edit' pk=ar.pk %}">Редактировать</a>
+                    </td>
+            </tr>
+            {% endfor %}
+        </table>
+{% endblock %}

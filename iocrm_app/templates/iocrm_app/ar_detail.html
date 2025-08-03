@@ -1,0 +1,76 @@
+{% extends 'iocrm_app/base.html' %}
+
+{% block content %}
+        <h1 class="mb-2">Артисты / {{ar.name}} </h1>
+        <table class="table table-striped align-middle">
+                <tr>
+                    <td>
+                        <b>#</b>
+                    </td>
+                    <td>
+                        <b>Артист</b>
+                    </td>
+                    <td>
+                        <b>Создано</b>
+                    </td>
+                    <td>
+                        <b>Обновлено</b>
+                    </td>
+                    <td>
+                        <b>Песни</b>
+                    </td>
+                    <td>
+                        <b>Поступления</b>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ar.pk}}
+                    </td>
+                    <td>
+                        <a href="{% url 'ar_detail' pk=ar.pk %}">{{ ar.name }}</a>
+                        
+                    </td>
+                    <td>
+                        {{ar.created_at}}
+                    </td>
+                    <td>
+                        {{ar.updated_at}}
+                    </td>
+                    <td>
+                        {% if ar.projects.all %}
+                            {% for p in ar.projects.all %}
+                                <a href="{% url 'pr_detail' pk=p.pk %}"> {{p.song}} </a>
+                                </br>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-secondary"> Песен пока нет </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ar.transactions.all %}
+                            {% for t in ar.transactions.all %}
+                                <a href="{% url 'tr_detail' pk=t.pk %}" class="link-secondary"> <b>{{t.q}} руб. </b> {{t.created_at }} </a></br>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-secondary"> Поступлений пока нет </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ar.landing %}
+                            <div class="rounded-circle" style="width: 10px; height: 10px; background-color: green;"></div>
+                        {% else %}
+                            <div class="rounded-circle" style="width: 10px; height: 10px; background-color: grey;"></div>
+                        {% endif %}
+                    </td>
+                    <td> {% if user.is_authenticated %}
+                        <a class="btn btn-link" href="{% url 'ar_edit' pk=ar.pk %}">Редактировать</a>
+                        {% endif %}
+                    </td>
+                </tr>
+        </table>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'iocrm_app/base.html' %}
+
+{% block content %}
+        <h1 class="mb-2"> Поступления </h1>
+        <table class="table table-striped align-middle">
+                <tr>
+                    <td>
+                        <b>#</b>
+                    </td>
+                    <td>
+                        <b>Сумма</b>
+                        <br>
+                        Тип
+                    </td>
+                    <td>
+                        <b>Создано</b>
+                        <br>
+                        Обновлено
+                    </td>
+                    <td>
+                        <b>Песня</b>
+                        <br>
+                        Артист
+                    </td>
+                    <td>
+                        <b>Комментарий</b>
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td><a href="{% url 'tr_new' %}" class="btn btn-primary">Добавить поступление</a></td>
+                </tr>
+            {% for tr in trs %}
+                <tr>
+                    <td>
+                        {{tr.pk}}
+                    </td>
+                    <td>
+                        <span>{{tr.q}} руб.</span> <br> <span class="text-secondary">{{tr.type}}</span>
+                    </td>
+                    <td>
+                        <span>{{tr.created_at}}</span> <br> <span class="text-secondary">{{tr.updated_at}}</span>
+                    </td>
+                    <td>
+                        <p><b>{{tr.song}}</b> <br>{{tr.artist}}</p>
+                    </td>
+                    <td>
+                        {% if tr.comment %}
+                            <span> <i> {{ tr.comment }} <i> </span>
+                        {% else %}
+                            <span class="text-secondary"> Нет комментариев </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'tr_detail' pk=tr.pk %}">Детали</a>
+                    </td>
+                    <td><a class="btn btn-link link-secondary" href="{% url 'tr_edit' pk=tr.pk %}">Редактировать</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+{% endblock %}
