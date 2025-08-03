@@ -20,15 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-jti$(oyab8f()7eiw$)ez1@5!$egy+$@c5hm0g_ss!-1e54tc%'
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+SECRET_KEY = 'django-insecure-jti$(oyab8f()7eiw$)ez1@5!$egy+$@c5hm0g_ss!-1e54tc%'
+# SECRET_KEY = os.environ.get("DJANGO_SECRET_KEYdjango-insecure-jti$(oyab8f()7eiw$)ez1@5!$egy+$@c5hm0g_ss!-1e54tc%")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = bool(os.environ.get("DEBUG", default=0))
+DEBUG = True
+# DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-# ALLOWED_HOSTS = ['127.0.0.1',]
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
+ALLOWED_HOSTS = ['127.0.0.1',]
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
 
 # CSRF_TRUSTED_ORIGINS = ['https://']
 
@@ -82,15 +82,16 @@ WSGI_APPLICATION = 'iocrm_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.{}'.format(
-            os.getenv('DATABASE_ENGINE', 'sqlite3')
-            ),
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': os.getenv('DATABASE_NAME', 'app'),
-        'USER': os.getenv('DATABASE_USERNAME', 'user'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
-        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DATABASE_PORT', 5432),
+        "ENGINE": "django.db.backends.sqlite3",
+        # 'ENGINE': 'django.db.backends.{}'.format(
+        #     os.getenv('DATABASE_ENGINE', 'sqlite3')
+        #     ),
+        'NAME': 'db.sqlite3',
+        # 'NAME': os.getenv('DATABASE_NAME', 'app'),
+        # 'USER': os.getenv('DATABASE_USERNAME', 'user'),
+        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+        # 'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
+        # 'PORT': os.getenv('DATABASE_PORT', 5432),
     }
 }
 
@@ -142,6 +143,9 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
